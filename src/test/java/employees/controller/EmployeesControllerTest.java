@@ -567,7 +567,7 @@ public class EmployeesControllerTest {
 
 		int pageNumber = 1;
 
-		//one elem per page
+		//3 elem per page
 		int pageSize = 3;
 
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);

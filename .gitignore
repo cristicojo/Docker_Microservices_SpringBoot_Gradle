@@ -5,8 +5,6 @@ build
 out
 src/main/resources/static
 src/main/resources/templates
-docker-compose.yml
-Dockerfile
 HELP.md
 
 
