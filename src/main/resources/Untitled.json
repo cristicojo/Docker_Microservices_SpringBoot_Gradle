@@ -1,0 +1,10 @@
+[{"_id":{"$oid":"5e77a330174fd40319273946"},"first_name":"cristi","last_name":"cojocaru","dob":{"$date":{"$numberLong":"-412135200000"}},"direct_manager":"ion","salary":123.56,"department":"accounting"},
+{"_id":{"$oid":"5e77a95f834b4c0319166e6f"},"first_name":"ion","last_name":"mihnea","dob":{"$date":{"$numberLong":"968457600000"}},"direct_manager":"ion","salary":11.22,"department":"testing"},
+{"_id":{"$oid":"5e77a9cc834b4c0319166e70"},"first_name":"alex","last_name":"popescu","dob":{"$date":{"$numberLong":"604965600000"}},"direct_manager":"cristi","salary":67.9,"department":"finance"},
+{"_id":{"$oid":"5e77aa0c834b4c0319166e71"},"first_name":"vasile","last_name":"ceausescu","dob":{"$date":{"$numberLong":"329173200000"}},"direct_manager":"alina","salary":123.123,"department":"logistics"},
+{"_id":{"$oid":"5e77aa13834b4c0319166e72"},"first_name":"alina","last_name":"radoi","dob":{"$date":{"$numberLong":"386974800000"}},"direct_manager":"cristina","salary":56.8,"department":"hr"},
+{"_id":{"$oid":"5e77aa19834b4c0319166e73"},"first_name":"cristina","last_name":"raducu","dob":{"$date":{"$numberLong":"662680800000"}},"direct_manager":"alex","salary":111.22,"department":"operations"},
+{"_id":{"$oid":"5e77aa1f834b4c0319166e74"},"first_name":"radu","last_name":"dumitrescu","dob":{"$date":{"$numberLong":"109634400000"}},"direct_manager":"george","salary":90.45,"department":"accounting"},
+{"_id":{"$oid":"5e77aa26834b4c0319166e75"},"first_name":"george","last_name":"balint","dob":{"$date":{"$numberLong":"-454388400000"}},"direct_manager":"alex","salary":999.555,"department":"operations"},
+{"_id":{"$oid":"5e78bcc2a912823c4fa9e3ff"},"first_name":"test","last_name":"alexandrescu","dob":{"$date":{"$numberLong":"968457600000"}},"direct_manager":"ion","salary":11.22,"department":"testing"},
+{"_id":{"$oid":"5e78bd4f68516b139f0524a8"},"first_name":"gigica","last_name":"alexandrescu","dob":{"$date":{"$numberLong":"968457600000"}},"direct_manager":"ion","salary":77.88,"department":"it"}]
