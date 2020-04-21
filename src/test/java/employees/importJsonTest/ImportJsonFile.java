@@ -42,7 +42,7 @@ public class ImportJsonFile {
 
 		String a = net.getServerAddress().getHostName();
 
-		MongoClient mongoClient = MongoClients.create("mongodb://" + a + ":27017");
+		MongoClient mongoClient = MongoClients.create("mongodb://" + a + ":" + port);
 		MongoImportProcess mongoImportProcess = mongoImportExecutable.start();
 
 

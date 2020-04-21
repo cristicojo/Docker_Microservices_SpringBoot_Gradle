@@ -231,7 +231,7 @@ public class EmployeesControllerTest {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		LocalDate date = LocalDate.parse(sDate, formatter);
 
-		String _id = "5e84ea8736cf6c7ca1d417c9";
+		String _id = "5e7ca85e12d4c247501f2724";
 
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("_id", _id);
@@ -258,7 +258,7 @@ public class EmployeesControllerTest {
 	@Order(6)
 	public void deleteByIdTest() {
 
-		Response response = given().delete(CONTEXT_PATH + "/employee/5e84ea8736cf6c7ca1d417c9");
+		Response response = given().delete(CONTEXT_PATH + "/employee/5e7ca85e12d4c247501f2724");
 
 		int r = response.getStatusCode();
 
@@ -600,7 +600,7 @@ public class EmployeesControllerTest {
 
 		List<Double> doubleList = response.jsonPath().get("salary");
 
-		assertThat(doubleList.toString(), equalTo("[999.555, 123.123, 123.12]"));
+		assertThat(doubleList.toString(), equalTo("[10000.0, 999.0, 567.0]"));
 
 
 	}
@@ -619,8 +619,7 @@ public class EmployeesControllerTest {
 
 
 
-		assertThat(doubleList.toString(), equalTo("[999.555, 123.123, 123.12, 111.22, 90.45, 78.9, 67.9, 56.8, 11.22, 11.22, " +
-															"0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"));
+		assertThat(doubleList.toString(), equalTo("[123.56, 123.123, 111.22, 90.45, 77.88, 67.9, 56.8, 11.22, 11.22, 0.0, 0.0, 0.0, 0.0]"));
 
 
 	}
