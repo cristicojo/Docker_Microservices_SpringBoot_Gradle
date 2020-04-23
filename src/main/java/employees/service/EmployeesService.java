@@ -32,8 +32,6 @@ public class EmployeesService {
 	MongoTemplate mongoTemplate;
 
 
-
-
 	public List<Employees> getEmployees() {
 
 		return repo.findAll();
@@ -61,7 +59,6 @@ public class EmployeesService {
 
 
 	}
-
 
 
 	public Employees updateEmployeeById(String id, Employees newEmp) {
@@ -112,14 +109,6 @@ public class EmployeesService {
 	}
 
 
-
-
-
-
-
-
-
-
 	//the employee who has the biggest salary in the given department
 	public Employees maxSalary(String department) {
 
@@ -131,36 +120,36 @@ public class EmployeesService {
 
 			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
 
-		} else {
+		}
 
-			double max = list.get(0).getSalary();
+		double max = list.get(0).getSalary();
 
-			for (Employees e : list) {
+		for (Employees e : list) {
 
-				if (max <= e.getSalary()) {
-					max = e.getSalary();
-					employee = e;
-				}
-
+			if (max <= e.getSalary()) {
+				max = e.getSalary();
+				employee = e;
 			}
 
-			return employee;
-
 		}
+
+		return employee;
+
+
 	}
 
 	//the manager who has the most "direct" employees coordinated by him
-	public Employees getDirect_Manager(){
+	public Employees getDirect_Manager() {
 
-		List<Employees> employeesList=repo.findAll();
+		List<Employees> employeesList = repo.findAll();
 		List<String> direct_ManagerList = new ArrayList<>();
 
-		for(Employees e:employeesList){
+		for (Employees e : employeesList) {
 			direct_ManagerList.add(e.getDirect_manager());
 		}
 
 
-		Employees manager=null;
+		Employees manager = null;
 
 		//find the most repeated manager in direct_manager column
 		Map<String, Integer> map = new HashMap<>();
@@ -179,9 +168,9 @@ public class EmployeesService {
 		String maxEntry = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
 
 
-		for(Employees e:employeesList){
-			if (maxEntry.equalsIgnoreCase(e.getDirect_manager())){
-				manager=e;
+		for (Employees e : employeesList) {
+			if (maxEntry.equalsIgnoreCase(e.getDirect_manager())) {
+				manager = e;
 			}
 		}
 
@@ -189,21 +178,14 @@ public class EmployeesService {
 	}
 
 
-
-
-
-
-
-
-
 	//BONUS POINTS
 	//load a json file
 	public void importJsonFile() {
 
-		File fileJson=new File("/Users/cristi/Documents/Untitled_93.json");
+		File fileJson = new File("/Users/cristi/Documents/Untitled_93.json");
 
 
-	//Read each line of the json file. Each file is one observation document.
+		//Read each line of the json file. Each file is one observation document.
 		List<Document> observationDocuments = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(fileJson.getPath()))) {
 			String line;
@@ -222,30 +204,37 @@ public class EmployeesService {
 
 
 	//paging
-	public Page<Employees> getPage(int page, int size){
+	public Page<Employees> getPage(int page, int size) {
 
-		Pageable pageable=PageRequest.of(page, size);
+		Pageable pageable = PageRequest.of(page, size);
 
 		return repo.findAll(pageable);
 
 	}
 
 
-
 	//top n best paid employees in a given department
-	public List<Employees> topNBest(String department,int n){
+	public List<Employees> topNBest(String department, int n) {
 
 		Criteria find = Criteria.where("department").is(department);
 		Query query = new Query().addCriteria(find).with(Sort.by(Sort.Direction.DESC, "salary")).limit(n);
 
-		return mongoTemplate.find(query, Employees.class);
+		List<Employees> employeesList = new ArrayList<>();
+
+		employeesList = mongoTemplate.find(query, Employees.class);
+
+		if (employeesList.isEmpty()) {
+
+			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
+		}
+
+		return employeesList;
 
 	}
 
 
-
 	//management tree: from the top CEO to the lowest employee
-	public List<Employees> managementTree(){
+	public List<Employees> managementTree() {
 
 		Query query = new Query().with(Sort.by(Sort.Direction.DESC, "salary"));
 
