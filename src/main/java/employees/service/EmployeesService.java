@@ -26,10 +26,10 @@ import employees.repository.EmployeesRepo;
 public class EmployeesService {
 
 	@Autowired
-	EmployeesRepo repo;
+	private EmployeesRepo repo;
 
 	@Autowired
-	MongoTemplate mongoTemplate;
+	private MongoTemplate mongoTemplate;
 
 
 	public List<Employees> getEmployees() {
@@ -99,7 +99,6 @@ public class EmployeesService {
 
 			repo.delete(optional.get());
 		}
-
 	}
 
 
@@ -119,7 +118,6 @@ public class EmployeesService {
 		if (list.isEmpty()) {
 
 			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
-
 		}
 
 		double max = list.get(0).getSalary();
@@ -134,8 +132,6 @@ public class EmployeesService {
 		}
 
 		return employee;
-
-
 	}
 
 	//the manager who has the most "direct" employees coordinated by him
@@ -184,7 +180,6 @@ public class EmployeesService {
 
 		File fileJson = new File("/Users/cristi/Documents/Untitled_93.json");
 
-
 		//Read each line of the json file. Each file is one observation document.
 		List<Document> observationDocuments = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(fileJson.getPath()))) {
@@ -193,13 +188,10 @@ public class EmployeesService {
 				observationDocuments.add(Document.parse(line));
 			}
 		} catch (IOException ex) {
-			ex.getMessage();
+			ex.getStackTrace();
 		}
 
-
 		mongoTemplate.getCollection("employees").insertMany(observationDocuments);
-
-
 	}
 
 
@@ -219,9 +211,7 @@ public class EmployeesService {
 		Criteria find = Criteria.where("department").is(department);
 		Query query = new Query().addCriteria(find).with(Sort.by(Sort.Direction.DESC, "salary")).limit(n);
 
-		List<Employees> employeesList = new ArrayList<>();
-
-		employeesList = mongoTemplate.find(query, Employees.class);
+		List<Employees> employeesList = mongoTemplate.find(query, Employees.class);
 
 		if (employeesList.isEmpty()) {
 
@@ -241,6 +231,4 @@ public class EmployeesService {
 		return mongoTemplate.find(query, Employees.class);
 
 	}
-
-
 }

@@ -21,8 +21,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import employees.exception.EmployeesNotFoundException;
 import employees.modelMongo.Employees;
@@ -386,7 +384,7 @@ public class EmployeesControllerTest {
 
 		double max = employeesControllerList.get(0).getSalary();
 
-		Employees eMock = null;
+		Employees eMock = Employees.builder().build();
 
 		String givenDep = "dep 2";
 
@@ -491,7 +489,7 @@ public class EmployeesControllerTest {
 		}
 
 
-		Employees manager = null;
+		Employees manager = Employees.builder().build();
 
 		//find the most repeated manager in direct_manager column
 		Map<String, Integer> map = new HashMap<>();
@@ -570,7 +568,6 @@ public class EmployeesControllerTest {
 		//3 elem per page
 		int pageSize = 3;
 
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		Page<Employees> employeesPageMock = new PageImpl<>(employeesListMock);
 
 
@@ -584,7 +581,6 @@ public class EmployeesControllerTest {
 //		Response response = RestAssured.get( "http://localhost:8080/rest_api/page=3&size=8");
 //
 //		assertThat(response.getStatusCode(), is(200));
-
 
 	}
 

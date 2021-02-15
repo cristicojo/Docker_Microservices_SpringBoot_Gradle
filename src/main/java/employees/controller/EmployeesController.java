@@ -15,7 +15,7 @@ import employees.service.EmployeesService;
 public class EmployeesController {
 
 	@Autowired
-	EmployeesService service;
+	private EmployeesService service;
 
 
 	@GetMapping(value = "/all")
