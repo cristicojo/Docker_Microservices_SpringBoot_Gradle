@@ -12,6 +12,7 @@ import employees.service.EmployeesService;
 
 @RestController
 @RequestMapping(value = "/rest_api", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin
 public class EmployeesController {
 
 	@Autowired
