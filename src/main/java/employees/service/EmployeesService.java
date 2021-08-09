@@ -181,7 +181,6 @@ public class EmployeesService {
 
 		Criteria find = Criteria.where("department").is(department);
 		Query query = new Query().addCriteria(find).with(Sort.by(Sort.Direction.DESC, "salary")).limit(n);
-
 		List<Employees> employeesList = mongoTemplate.find(query, Employees.class);
 
 		if (employeesList.isEmpty()) {
