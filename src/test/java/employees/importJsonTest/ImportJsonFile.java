@@ -25,12 +25,9 @@ public class ImportJsonFile {
 
 		Net net = new Net(Network.getFreeServerPort(), Network.localhostIsIPv6());
 		IMongodConfig mongodConfig = new MongodConfigBuilder().version(Version.Main.PRODUCTION).net(net).build();
-
 		IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder().defaults(Command.MongoD).build();
-
 		MongodExecutable mongodExe = MongodStarter.getInstance(runtimeConfig).prepare(mongodConfig);
 		MongodProcess mongod = mongodExe.start();
-
 		File jsonFile = new File(Thread.currentThread().getContextClassLoader().getResource("Untitled.json").getFile());
 
 		String importDatabase = "local";
@@ -39,19 +36,14 @@ public class ImportJsonFile {
 
 		//import json file in the db
 		MongoImportExecutable mongoImportExecutable = mongoImportExecutable(port, importDatabase, importCollection, jsonFile.getAbsolutePath(), true, true, true);
-
 		String a = net.getServerAddress().getHostName();
-
 		MongoClient mongoClient = MongoClients.create("mongodb://" + a + ":" + port);
 		MongoImportProcess mongoImportProcess = mongoImportExecutable.start();
 
-
 		assertEquals(10, mongoClient.getDatabase(importDatabase).getCollection(importCollection).countDocuments());
-
 		mongoImportProcess.stop();
 		mongod.stop();
 		mongodExe.stop();
-
 
 	}
 
@@ -71,7 +63,4 @@ public class ImportJsonFile {
 
 		return MongoImportStarter.getDefaultInstance().prepare(mongoImportConfig);
 	}
-
-
 }
-

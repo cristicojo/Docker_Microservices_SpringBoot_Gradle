@@ -33,31 +33,21 @@ public class EmployeesService {
 
 
 	public List<Employees> getEmployees() {
-
 		return repo.findAll();
 	}
 
 	public Employees getEmployeeById(String id) {
-
-		Optional<Employees> optional = repo.findById(id);
-
-		return optional.orElseThrow(() -> new EmployeesNotFoundException("Could not found an employee with id: " + id));
+		return repo.findById(id).orElseThrow(() -> new EmployeesNotFoundException("Could not found an employee with id: " + id));
 	}
 
 
 	public Employees createEmployee(Employees newEmp) {
-
 		return repo.save(newEmp);
-
-
 	}
 
 
 	public List<Employees> createEmployee_s(List<Employees> employeesList) {
-
 		return repo.saveAll(employeesList);
-
-
 	}
 
 
@@ -65,23 +55,17 @@ public class EmployeesService {
 
 		Optional<Employees> optional = repo.findById(id);
 
-		Employees oldEmp;
 		if (!(optional.isPresent())) {
-
 			throw new EmployeesNotFoundException("Could not found an employee with id: " + id);
-
-		} else {
-
-			oldEmp = optional.get();
-
-			oldEmp.setFirst_name(newEmp.getFirst_name());
-			oldEmp.setLast_name(newEmp.getLast_name());
-			oldEmp.setDob(newEmp.getDob());
-			oldEmp.setDirect_manager(newEmp.getDirect_manager());
-			oldEmp.setSalary(newEmp.getSalary());
-			oldEmp.setDepartment(newEmp.getDepartment());
-
 		}
+
+		Employees oldEmp = optional.get();
+		oldEmp.setFirst_name(newEmp.getFirst_name());
+		oldEmp.setLast_name(newEmp.getLast_name());
+		oldEmp.setDob(newEmp.getDob());
+		oldEmp.setDirect_manager(newEmp.getDirect_manager());
+		oldEmp.setSalary(newEmp.getSalary());
+		oldEmp.setDepartment(newEmp.getDepartment());
 
 		return repo.save(oldEmp);
 	}
@@ -92,18 +76,14 @@ public class EmployeesService {
 		Optional<Employees> optional = repo.findById(id);
 
 		if (!(optional.isPresent())) {
-
 			throw new EmployeesNotFoundException("Could not found an employee with id: " + id);
-
 		} else {
-
 			repo.delete(optional.get());
 		}
 	}
 
 
 	public void deleteAllEmployees() {
-
 		repo.deleteAll();
 	}
 
@@ -112,23 +92,18 @@ public class EmployeesService {
 	public Employees maxSalary(String department) {
 
 		List<Employees> list = repo.findByDepartment(department);
-
-		Employees employee = null;
+		Employees employee = Employees.builder().build();
 
 		if (list.isEmpty()) {
-
 			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
 		}
 
 		double max = list.get(0).getSalary();
-
 		for (Employees e : list) {
-
 			if (max <= e.getSalary()) {
 				max = e.getSalary();
 				employee = e;
 			}
-
 		}
 
 		return employee;
@@ -144,8 +119,7 @@ public class EmployeesService {
 			direct_ManagerList.add(e.getDirect_manager());
 		}
 
-
-		Employees manager = null;
+		Employees manager = Employees.builder().build();
 
 		//find the most repeated manager in direct_manager column
 		Map<String, Integer> map = new HashMap<>();
@@ -162,7 +136,6 @@ public class EmployeesService {
 
 		//find the key which has the maximum value from the map
 		String maxEntry = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
-
 
 		for (Employees e : employeesList) {
 			if (maxEntry.equalsIgnoreCase(e.getDirect_manager())) {
@@ -199,9 +172,7 @@ public class EmployeesService {
 	public Page<Employees> getPage(int page, int size) {
 
 		Pageable pageable = PageRequest.of(page, size);
-
 		return repo.findAll(pageable);
-
 	}
 
 
@@ -214,12 +185,10 @@ public class EmployeesService {
 		List<Employees> employeesList = mongoTemplate.find(query, Employees.class);
 
 		if (employeesList.isEmpty()) {
-
 			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
 		}
 
 		return employeesList;
-
 	}
 
 
@@ -227,8 +196,6 @@ public class EmployeesService {
 	public List<Employees> managementTree() {
 
 		Query query = new Query().with(Sort.by(Sort.Direction.DESC, "salary"));
-
 		return mongoTemplate.find(query, Employees.class);
-
 	}
 }
