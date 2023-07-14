@@ -20,10 +20,10 @@ public class Employees {
 	@Id
 	public String _id;
 
-	private String first_name;
-	private String last_name;
+	private String firstName;
+	private String lastName;
 	private Date dob;
-	private String direct_manager;
+	private String directManager;
 	private double salary;
 	private String department;
 }

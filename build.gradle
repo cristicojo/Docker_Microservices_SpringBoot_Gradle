@@ -69,5 +69,5 @@ test {
 
 
 bootWar {
-	archiveName('docker_crud_service.jar')
+	archiveName('crud_service.jar')
 }

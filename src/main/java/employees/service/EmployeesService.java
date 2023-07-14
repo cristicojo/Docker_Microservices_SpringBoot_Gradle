@@ -60,10 +60,10 @@ public class EmployeesService {
 		}
 
 		Employees oldEmp = optional.get();
-		oldEmp.setFirst_name(newEmp.getFirst_name());
-		oldEmp.setLast_name(newEmp.getLast_name());
+		oldEmp.setFirstName(newEmp.getFirstName());
+		oldEmp.setLastName(newEmp.getLastName());
 		oldEmp.setDob(newEmp.getDob());
-		oldEmp.setDirect_manager(newEmp.getDirect_manager());
+		oldEmp.setDirectManager(newEmp.getDirectManager());
 		oldEmp.setSalary(newEmp.getSalary());
 		oldEmp.setDepartment(newEmp.getDepartment());
 
@@ -116,7 +116,7 @@ public class EmployeesService {
 		List<String> direct_ManagerList = new ArrayList<>();
 
 		for (Employees e : employeesList) {
-			direct_ManagerList.add(e.getDirect_manager());
+			direct_ManagerList.add(e.getDirectManager());
 		}
 
 		Employees manager = Employees.builder().build();
@@ -138,7 +138,7 @@ public class EmployeesService {
 		String maxEntry = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
 
 		for (Employees e : employeesList) {
-			if (maxEntry.equalsIgnoreCase(e.getDirect_manager())) {
+			if (maxEntry.equalsIgnoreCase(e.getDirectManager())) {
 				manager = e;
 			}
 		}

@@ -13,9 +13,9 @@ services:
     container_name: eureka-server-service
     ports:
       - 8761:8761
-  docker-crud-service:
-    image: docker_crud_service:latest
-    container_name: docker-crud-service
+  crud-service:
+    image: crud_service:latest
+    container_name: crud-service
     ports:
       - 8080:8080
     depends_on:
