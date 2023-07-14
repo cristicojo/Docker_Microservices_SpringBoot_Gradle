@@ -55,28 +55,28 @@ public class EmployeesControllerTest {
 
 		Employees eMock1 = new Employees();
 		eMock1.set_id("1");
-		eMock1.setFirst_name("testeeee 1");
-		eMock1.setLast_name("testeeee 1");
+		eMock1.setFirstName("testeeee 1");
+		eMock1.setLastName("testeeee 1");
 		eMock1.setDob(date);
-		eMock1.setDirect_manager("TESTE 1");
+		eMock1.setDirectManager("TESTE 1");
 		eMock1.setSalary(444.44);
 		eMock1.setDepartment("testeeee 1");
 
 		Employees eMock2 = new Employees();
 		eMock2.set_id("2");
-		eMock2.setFirst_name("testeeee 2");
-		eMock2.setLast_name("testeeee 2");
+		eMock2.setFirstName("testeeee 2");
+		eMock2.setLastName("testeeee 2");
 		eMock2.setDob(date);
-		eMock2.setDirect_manager("TESTE 2");
+		eMock2.setDirectManager("TESTE 2");
 		eMock2.setSalary(444.45);
 		eMock2.setDepartment("testeeee 2");
 
 		Employees eMock3 = new Employees();
 		eMock3.set_id("3");
-		eMock3.setFirst_name("testeeee 3");
-		eMock3.setLast_name("testeeee 3");
+		eMock3.setFirstName("testeeee 3");
+		eMock3.setLastName("testeeee 3");
 		eMock3.setDob(date);
-		eMock3.setDirect_manager("TESTE 3");
+		eMock3.setDirectManager("TESTE 3");
 		eMock3.setSalary(444.46);
 		eMock3.setDepartment("testeeee 3");
 
@@ -90,16 +90,16 @@ public class EmployeesControllerTest {
 
 		assertNotNull(employeesControllerList);
 		assertEquals(listMockEmployees.get(0).get_id(), employeesControllerList.get(0).get_id());
-		assertEquals(listMockEmployees.get(0).getFirst_name(), employeesControllerList.get(0).getFirst_name());
-		assertEquals(listMockEmployees.get(0).getDirect_manager(), employeesControllerList.get(0).getDirect_manager());
+		assertEquals(listMockEmployees.get(0).getFirstName(), employeesControllerList.get(0).getFirstName());
+		assertEquals(listMockEmployees.get(0).getDirectManager(), employeesControllerList.get(0).getDirectManager());
 
 		assertEquals(listMockEmployees.get(1).getDob(), employeesControllerList.get(1).getDob());
 		assertEquals(listMockEmployees.get(1).getSalary(), employeesControllerList.get(1).getSalary());
 		assertEquals(listMockEmployees.get(1).getDepartment(), employeesControllerList.get(1).getDepartment());
 
 		assertEquals(listMockEmployees.get(2).get_id(), employeesControllerList.get(2).get_id());
-		assertEquals(listMockEmployees.get(2).getFirst_name(), employeesControllerList.get(2).getFirst_name());
-		assertEquals(listMockEmployees.get(2).getDirect_manager(), employeesControllerList.get(2).getDirect_manager());
+		assertEquals(listMockEmployees.get(2).getFirstName(), employeesControllerList.get(2).getFirstName());
+		assertEquals(listMockEmployees.get(2).getDirectManager(), employeesControllerList.get(2).getDirectManager());
 
 	}
 
@@ -112,10 +112,10 @@ public class EmployeesControllerTest {
 		Employees eMock = new Employees();
 
 		eMock.set_id("11");
-		eMock.setFirst_name("cristi teste");
-		eMock.setLast_name("cojocaru teste");
+		eMock.setFirstName("cristi teste");
+		eMock.setLastName("cojocaru teste");
 		eMock.setDob(date);
-		eMock.setDirect_manager("TESTE");
+		eMock.setDirectManager("TESTE");
 		eMock.setSalary(444.44);
 		eMock.setDepartment("IT");
 
@@ -125,8 +125,8 @@ public class EmployeesControllerTest {
 
 		assertNotNull(employeesController);
 		assertEquals("11", eMock.get_id());
-		assertEquals(eMock.getFirst_name(), employeesController.getFirst_name());
-		assertEquals(eMock.getDirect_manager(), employeesController.getDirect_manager());
+		assertEquals(eMock.getFirstName(), employeesController.getFirstName());
+		assertEquals(eMock.getDirectManager(), employeesController.getDirectManager());
 
 	}
 
@@ -283,56 +283,56 @@ public class EmployeesControllerTest {
 
 		Employees eMock0 = new Employees();
 		eMock0.set_id("1");
-		eMock0.setFirst_name("testeeee 1");
-		eMock0.setLast_name("testeeee 1");
+		eMock0.setFirstName("testeeee 1");
+		eMock0.setLastName("testeeee 1");
 		eMock0.setDob(date);
-		eMock0.setDirect_manager("TESTE 1");
+		eMock0.setDirectManager("TESTE 1");
 		eMock0.setSalary(3.3);
 		eMock0.setDepartment("dep 1");
 
 		Employees eMock1 = new Employees();
 		eMock1.set_id("2");
-		eMock1.setFirst_name("testeeee 2");
-		eMock1.setLast_name("testeeee 2");
+		eMock1.setFirstName("testeeee 2");
+		eMock1.setLastName("testeeee 2");
 		eMock1.setDob(date);
-		eMock1.setDirect_manager("TESTE 2");
+		eMock1.setDirectManager("TESTE 2");
 		eMock1.setSalary(2.2);
 		eMock1.setDepartment("dep 1");
 
 		Employees eMock2 = new Employees();
 		eMock2.set_id("3");
-		eMock2.setFirst_name("testeeee 3");
-		eMock2.setLast_name("testeeee 3");
+		eMock2.setFirstName("testeeee 3");
+		eMock2.setLastName("testeeee 3");
 		eMock2.setDob(date);
-		eMock2.setDirect_manager("TESTE 3");
+		eMock2.setDirectManager("TESTE 3");
 		eMock2.setSalary(1.1);
 		eMock2.setDepartment("dep 1");
 
 
 		Employees eMock3 = new Employees();
 		eMock3.set_id("1");
-		eMock3.setFirst_name("testeeee 1");
-		eMock3.setLast_name("testeeee 1");
+		eMock3.setFirstName("testeeee 1");
+		eMock3.setLastName("testeeee 1");
 		eMock3.setDob(date);
-		eMock3.setDirect_manager("TESTE 1");
+		eMock3.setDirectManager("TESTE 1");
 		eMock3.setSalary(6.6);
 		eMock3.setDepartment("dep 2");
 
 		Employees eMock4 = new Employees();
 		eMock4.set_id("2");
-		eMock4.setFirst_name("testeeee 2");
-		eMock4.setLast_name("testeeee 2");
+		eMock4.setFirstName("testeeee 2");
+		eMock4.setLastName("testeeee 2");
 		eMock4.setDob(date);
-		eMock4.setDirect_manager("TESTE 2");
+		eMock4.setDirectManager("TESTE 2");
 		eMock4.setSalary(5.5);
 		eMock4.setDepartment("dep 2");
 
 		Employees eMock5 = new Employees();
 		eMock5.set_id("3");
-		eMock5.setFirst_name("testeeee 3");
-		eMock5.setLast_name("testeeee 3");
+		eMock5.setFirstName("testeeee 3");
+		eMock5.setLastName("testeeee 3");
 		eMock5.setDob(date);
-		eMock5.setDirect_manager("TESTE 3");
+		eMock5.setDirectManager("TESTE 3");
 		eMock5.setSalary(4.4);
 		eMock5.setDepartment("dep 2");
 
@@ -366,7 +366,7 @@ public class EmployeesControllerTest {
 
 	@Test
 	@Order(9)
-	public void getDirect_ManagerTest() throws ParseException {
+	public void getDirectManagerTest() throws ParseException {
 
 
 		String sDate = "1984-11-25";
@@ -374,56 +374,56 @@ public class EmployeesControllerTest {
 
 		Employees eMock0 = new Employees();
 		eMock0.set_id("1");
-		eMock0.setFirst_name("testeeee 1");
-		eMock0.setLast_name("testeeee 1");
+		eMock0.setFirstName("testeeee 1");
+		eMock0.setLastName("testeeee 1");
 		eMock0.setDob(date);
-		eMock0.setDirect_manager("TESTE 2");
+		eMock0.setDirectManager("TESTE 2");
 		eMock0.setSalary(3.3);
 		eMock0.setDepartment("dep 1");
 
 		Employees eMock1 = new Employees();
 		eMock1.set_id("2");
-		eMock1.setFirst_name("testeeee 2");
-		eMock1.setLast_name("testeeee 2");
+		eMock1.setFirstName("testeeee 2");
+		eMock1.setLastName("testeeee 2");
 		eMock1.setDob(date);
-		eMock1.setDirect_manager("TESTE 2");
+		eMock1.setDirectManager("TESTE 2");
 		eMock1.setSalary(2.2);
 		eMock1.setDepartment("dep 1");
 
 		Employees eMock2 = new Employees();
 		eMock2.set_id("3");
-		eMock2.setFirst_name("testeeee 3");
-		eMock2.setLast_name("testeeee 3");
+		eMock2.setFirstName("testeeee 3");
+		eMock2.setLastName("testeeee 3");
 		eMock2.setDob(date);
-		eMock2.setDirect_manager("TESTE 2");
+		eMock2.setDirectManager("TESTE 2");
 		eMock2.setSalary(1.1);
 		eMock2.setDepartment("dep 1");
 
 
 		Employees eMock3 = new Employees();
 		eMock3.set_id("1");
-		eMock3.setFirst_name("testeeee 1");
-		eMock3.setLast_name("testeeee 1");
+		eMock3.setFirstName("testeeee 1");
+		eMock3.setLastName("testeeee 1");
 		eMock3.setDob(date);
-		eMock3.setDirect_manager("TESTE 4");
+		eMock3.setDirectManager("TESTE 4");
 		eMock3.setSalary(6.6);
 		eMock3.setDepartment("dep 2");
 
 		Employees eMock4 = new Employees();
 		eMock4.set_id("2");
-		eMock4.setFirst_name("testeeee 2");
-		eMock4.setLast_name("testeeee 2");
+		eMock4.setFirstName("testeeee 2");
+		eMock4.setLastName("testeeee 2");
 		eMock4.setDob(date);
-		eMock4.setDirect_manager("TESTE 5");
+		eMock4.setDirectManager("TESTE 5");
 		eMock4.setSalary(5.5);
 		eMock4.setDepartment("dep 2");
 
 		Employees eMock5 = new Employees();
 		eMock5.set_id("3");
-		eMock5.setFirst_name("testeeee 3");
-		eMock5.setLast_name("testeeee 3");
+		eMock5.setFirstName("testeeee 3");
+		eMock5.setLastName("testeeee 3");
 		eMock5.setDob(date);
-		eMock5.setDirect_manager("TESTE 5");
+		eMock5.setDirectManager("TESTE 5");
 		eMock5.setSalary(4.4);
 		eMock5.setDepartment("dep 2");
 
@@ -440,7 +440,7 @@ public class EmployeesControllerTest {
 		List<String> direct_ManagerList = new ArrayList<>();
 
 		for (Employees e : employeesControllerList) {
-			direct_ManagerList.add(e.getDirect_manager());
+			direct_ManagerList.add(e.getDirectManager());
 		}
 
 
@@ -463,12 +463,12 @@ public class EmployeesControllerTest {
 		String maxEntry = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
 
 		for (Employees e : employeesControllerList) {
-			if (maxEntry.equalsIgnoreCase(e.getDirect_manager())) {
+			if (maxEntry.equalsIgnoreCase(e.getDirectManager())) {
 				manager = e;
 			}
 		}
 
-		assertEquals(manager.getDirect_manager().toLowerCase(), employeesControllerList.get(0).getDirect_manager().toLowerCase());
+		assertEquals(manager.getDirectManager().toLowerCase(), employeesControllerList.get(0).getDirectManager().toLowerCase());
 	}
 
 
@@ -483,28 +483,28 @@ public class EmployeesControllerTest {
 
 		Employees eMock1 = new Employees();
 		eMock1.set_id("1");
-		eMock1.setFirst_name("testeeee 1");
-		eMock1.setLast_name("testeeee 1");
+		eMock1.setFirstName("testeeee 1");
+		eMock1.setLastName("testeeee 1");
 		eMock1.setDob(date);
-		eMock1.setDirect_manager("TESTE 2");
+		eMock1.setDirectManager("TESTE 2");
 		eMock1.setSalary(3.3);
 		eMock1.setDepartment("dep 1");
 
 		Employees eMock2 = new Employees();
 		eMock2.set_id("2");
-		eMock2.setFirst_name("testeeee 1");
-		eMock2.setLast_name("testeeee 1");
+		eMock2.setFirstName("testeeee 1");
+		eMock2.setLastName("testeeee 1");
 		eMock2.setDob(date);
-		eMock2.setDirect_manager("TESTE 2");
+		eMock2.setDirectManager("TESTE 2");
 		eMock2.setSalary(3.3);
 		eMock2.setDepartment("dep 1");
 
 		Employees eMock3 = new Employees();
 		eMock3.set_id("3");
-		eMock3.setFirst_name("testeeee 1");
-		eMock3.setLast_name("testeeee 1");
+		eMock3.setFirstName("testeeee 1");
+		eMock3.setLastName("testeeee 1");
 		eMock3.setDob(date);
-		eMock3.setDirect_manager("TESTE 2");
+		eMock3.setDirectManager("TESTE 2");
 		eMock3.setSalary(3.3);
 		eMock3.setDepartment("dep 1");
 
