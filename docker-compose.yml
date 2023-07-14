@@ -8,13 +8,13 @@ services:
     ports:
       - 27017:27017
   eureka-server-service:
-    image: eureka_server_service:latest
+    image: cristicojocaru1125/first_repo:eureka_server_service
     restart: always
     container_name: eureka-server-service
     ports:
       - 8761:8761
   crud-service:
-    image: crud_service:latest
+    image: cristicojocaru1125/first_repo:crud_service
     container_name: crud-service
     ports:
       - 8080:8080
@@ -24,7 +24,7 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server-service:8761/eureka
   bonus-points-service:
-    image: bonus_points_service:latest
+    image: cristicojocaru1125/first_repo:bonus_points_service
     container_name: bonus-points-service
     ports:
       - 8081:8081
