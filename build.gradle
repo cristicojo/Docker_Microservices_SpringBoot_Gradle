@@ -34,8 +34,6 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
 
 
 
@@ -43,7 +41,7 @@ dependencies {
 	//where I'm testing the importJsonFileTest method
 	//Warning: when I build the project from Gradle the connection with
 	//the mongo server is shutting down because of the embedded mongo flapdoodle
-	testImplementation ('de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.1.1')
+//	testImplementation ('de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.1.1')
 
 }
 

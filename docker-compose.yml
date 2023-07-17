@@ -22,7 +22,7 @@ services:
       - mongo
       - eureka-server-service
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server-service:8761/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka
   bonus-points-service:
     image: cristicojocaru1125/first_repo:bonus_points_service
     container_name: bonus-points-service
@@ -32,4 +32,4 @@ services:
       - mongo
       - eureka-server-service
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server-service:8761/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka

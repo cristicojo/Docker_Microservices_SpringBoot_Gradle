@@ -151,7 +151,7 @@ public class EmployeesService {
 	//load a json file
 	public void importJsonFile() {
 
-		File fileJson = new File("/Users/cristi/Documents/Untitled_93.json");
+		File fileJson = new File("/Users/cristicojocaru/Documents/old/Untitled_93.json");
 
 		//Read each line of the json file. Each file is one observation document.
 		List<Document> observationDocuments = new ArrayList<>();
