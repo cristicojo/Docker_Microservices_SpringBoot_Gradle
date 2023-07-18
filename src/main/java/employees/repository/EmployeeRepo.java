@@ -6,11 +6,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import employees.modelMongo.Employees;
+import employees.entity.Employee;
 
 @Repository
-public interface EmployeesRepo extends MongoRepository<Employees,String>, PagingAndSortingRepository<Employees, String> {
+public interface EmployeeRepo extends MongoRepository<Employee,String>, PagingAndSortingRepository<Employee, String> {
 
-	List<Employees> findByDepartment(String department);
+	List<Employee> findByDepartment(String department);
 
 }

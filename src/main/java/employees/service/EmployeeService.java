@@ -18,48 +18,48 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import employees.exception.DepartmentNotFoundException;
-import employees.exception.EmployeesNotFoundException;
-import employees.modelMongo.Employees;
-import employees.repository.EmployeesRepo;
+import employees.exception.EmployeeNotFoundException;
+import employees.entity.Employee;
+import employees.repository.EmployeeRepo;
 
 @Service
-public class EmployeesService {
+public class EmployeeService {
 
 	@Autowired
-	private EmployeesRepo repo;
+	private EmployeeRepo repo;
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
 
-	public List<Employees> getEmployees() {
+	public List<Employee> getEmployees() {
 		return repo.findAll();
 	}
 
-	public Employees getEmployeeById(String id) {
-		return repo.findById(id).orElseThrow(() -> new EmployeesNotFoundException("Could not found an employee with id: " + id));
+	public Employee getEmployeeById(String id) {
+		return repo.findById(id).orElseThrow(() -> new EmployeeNotFoundException("Could not found an employee with id: " + id));
 	}
 
 
-	public Employees createEmployee(Employees newEmp) {
+	public Employee createEmployee(Employee newEmp) {
 		return repo.save(newEmp);
 	}
 
 
-	public List<Employees> createEmployee_s(List<Employees> employeesList) {
-		return repo.saveAll(employeesList);
+	public List<Employee> createEmployee_s(List<Employee> employeeList) {
+		return repo.saveAll(employeeList);
 	}
 
 
-	public Employees updateEmployeeById(String id, Employees newEmp) {
+	public Employee updateEmployeeById(String id, Employee newEmp) {
 
-		Optional<Employees> optional = repo.findById(id);
+		Optional<Employee> optional = repo.findById(id);
 
 		if (!(optional.isPresent())) {
-			throw new EmployeesNotFoundException("Could not found an employee with id: " + id);
+			throw new EmployeeNotFoundException("Could not found an employee with id: " + id);
 		}
 
-		Employees oldEmp = optional.get();
+		Employee oldEmp = optional.get();
 		oldEmp.setFirstName(newEmp.getFirstName());
 		oldEmp.setLastName(newEmp.getLastName());
 		oldEmp.setDob(newEmp.getDob());
@@ -73,10 +73,10 @@ public class EmployeesService {
 
 	public void deleteEmployeeById(String id) {
 
-		Optional<Employees> optional = repo.findById(id);
+		Optional<Employee> optional = repo.findById(id);
 
 		if (!(optional.isPresent())) {
-			throw new EmployeesNotFoundException("Could not found an employee with id: " + id);
+			throw new EmployeeNotFoundException("Could not found an employee with id: " + id);
 		} else {
 			repo.delete(optional.get());
 		}
@@ -89,17 +89,17 @@ public class EmployeesService {
 
 
 	//the employee who has the biggest salary in the given department
-	public Employees maxSalary(String department) {
+	public Employee maxSalary(String department) {
 
-		List<Employees> list = repo.findByDepartment(department);
-		Employees employee = Employees.builder().build();
+		List<Employee> list = repo.findByDepartment(department);
+		Employee employee = Employee.builder().build();
 
 		if (list.isEmpty()) {
 			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
 		}
 
 		double max = list.get(0).getSalary();
-		for (Employees e : list) {
+		for (Employee e : list) {
 			if (max <= e.getSalary()) {
 				max = e.getSalary();
 				employee = e;
@@ -110,16 +110,16 @@ public class EmployeesService {
 	}
 
 	//the manager who has the most "direct" employees coordinated by him
-	public Employees getDirect_Manager() {
+	public Employee getDirect_Manager() {
 
-		List<Employees> employeesList = repo.findAll();
+		List<Employee> employeeList = repo.findAll();
 		List<String> direct_ManagerList = new ArrayList<>();
 
-		for (Employees e : employeesList) {
+		for (Employee e : employeeList) {
 			direct_ManagerList.add(e.getDirectManager());
 		}
 
-		Employees manager = Employees.builder().build();
+		Employee manager = Employee.builder().build();
 
 		//find the most repeated manager in direct_manager column
 		Map<String, Integer> map = new HashMap<>();
@@ -137,7 +137,7 @@ public class EmployeesService {
 		//find the key which has the maximum value from the map
 		String maxEntry = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
 
-		for (Employees e : employeesList) {
+		for (Employee e : employeeList) {
 			if (maxEntry.equalsIgnoreCase(e.getDirectManager())) {
 				manager = e;
 			}
@@ -169,7 +169,7 @@ public class EmployeesService {
 
 
 	//paging
-	public Page<Employees> getPage(int page, int size) {
+	public Page<Employee> getPage(int page, int size) {
 
 		Pageable pageable = PageRequest.of(page, size);
 		return repo.findAll(pageable);
@@ -177,24 +177,24 @@ public class EmployeesService {
 
 
 	//top n best paid employees in a given department
-	public List<Employees> topNBest(String department, int n) {
+	public List<Employee> topNBest(String department, int n) {
 
 		Criteria find = Criteria.where("department").is(department);
 		Query query = new Query().addCriteria(find).with(Sort.by(Sort.Direction.DESC, "salary")).limit(n);
-		List<Employees> employeesList = mongoTemplate.find(query, Employees.class);
+		List<Employee> employeeList = mongoTemplate.find(query, Employee.class);
 
-		if (employeesList.isEmpty()) {
+		if (employeeList.isEmpty()) {
 			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
 		}
 
-		return employeesList;
+		return employeeList;
 	}
 
 
 	//management tree: from the top CEO to the lowest employee
-	public List<Employees> managementTree() {
+	public List<Employee> managementTree() {
 
 		Query query = new Query().with(Sort.by(Sort.Direction.DESC, "salary"));
-		return mongoTemplate.find(query, Employees.class);
+		return mongoTemplate.find(query, Employee.class);
 	}
 }

@@ -1,4 +1,4 @@
-package employees.modelMongo;
+package employees.entity;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 
 @Document(collection = "employees")
-public class Employees {
+public class Employee {
 
 	@Id
 	public String _id;
