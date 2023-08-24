@@ -1,6 +1,6 @@
 package employees.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,12 +18,12 @@ import lombok.*;
 public class Employee {
 
 	@Id
-	public String _id;
+	public String id;
 
 	private String firstName;
 	private String lastName;
-	private Date dob;
+	private LocalDate dob;
 	private String directManager;
-	private double salary;
+	private Double salary;
 	private String department;
 }

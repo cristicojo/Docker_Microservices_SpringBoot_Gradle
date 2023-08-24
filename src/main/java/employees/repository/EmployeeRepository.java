@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import employees.entity.Employee;
 
 @Repository
-public interface EmployeeRepo extends MongoRepository<Employee,String>, PagingAndSortingRepository<Employee, String> {
+public interface EmployeeRepository
+		extends MongoRepository<Employee,String>, PagingAndSortingRepository<Employee, String> {
 
 	List<Employee> findByDepartment(String department);
 

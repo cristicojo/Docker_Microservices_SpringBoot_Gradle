@@ -2,7 +2,7 @@ package employees.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,58 +12,58 @@ import employees.service.EmployeeService;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequiredArgsConstructor
 @CrossOrigin
 public class EmployeeController {
 
-	@Autowired
-	private EmployeeService service;
+	private final EmployeeService service;
 
 
-	@GetMapping(value = "/all")
-	public List<Employee> findAllEmployees() {
-		return service.getEmployees();
+	@GetMapping(value = "/find/all")
+	public List<Employee> findAll() {
+		return service.getAll();
 	}
 
 
 	@GetMapping(value = "/employee/{id}")
-	public Employee findEmployeeById(@PathVariable(value = "id") String id) {
-		return service.getEmployeeById(id);
+	public Employee findById(@PathVariable(value = "id") String id) {
+		return service.getById(id);
 	}
 
 
-	@PostMapping(value = "/employee")
-	public Employee saveEmployee(@RequestBody Employee emp) {
-		return service.createEmployee(emp);
+	@PostMapping(value = "/create")
+	public Employee save(@RequestBody Employee emp) {
+		return service.create(emp);
 	}
 
 
-	@PostMapping(value = "/employees")
-	public List<Employee> saveEmployeeS(@RequestBody List<Employee> employeeList) {
-		return service.createEmployee_s(employeeList);
+	@PostMapping(value = "/create/all")
+	public List<Employee> saveAll(@RequestBody List<Employee> employeeList) {
+		return service.createAll(employeeList);
 	}
 
 
 	@PutMapping(value = "/employee/{id}")
-	public Employee updateEmployee(@RequestBody Employee newEmp, @PathVariable(value = "id") String id) {
-		return service.updateEmployeeById(id, newEmp);
+	public Employee update(@RequestBody Employee newEmp, @PathVariable(value = "id") String id) {
+		return service.updateById(id, newEmp);
 	}
 
 
 	@DeleteMapping(value = "/employee/{id}")
 	public void deleteById(@PathVariable(value = "id") String id) {
-		service.deleteEmployeeById(id);
+		service.remove(id);
 	}
 
 
-	@DeleteMapping(value = "/all")
+	@DeleteMapping(value = "/remove/all")
 	public void deleteAll() {
-		service.deleteAllEmployees();
+		service.removeAll();
 	}
 
 
 	//the employee who has the biggest salary in the given department
 	@GetMapping(value = "/max/{department}")
-	public Employee findEmployeeByMaxSalaryByDepartment(@PathVariable(value = "department") String department) {
+	public Employee findByByDepartmentMaxSalary(@PathVariable(value = "department") String department) {
 		return service.maxSalary(department);
 	}
 
@@ -71,7 +71,7 @@ public class EmployeeController {
 	//the manager who has the most "direct" employees coordinated by him
 	@GetMapping(value = "/manager")
 	public Employee getManager() {
-		return service.getDirect_Manager();
+		return service.getDirectManager();
 	}
 
 
@@ -93,7 +93,7 @@ public class EmployeeController {
 	//top n best paid employees in a given department
 	@GetMapping(value = "/top/{department}/{n}")
 	public List<Employee> topN(@PathVariable(value = "department") String department, @PathVariable(value="n") int n) {
-		return service.topNBest(department,n);
+		return service.topBestPaid(department,n);
 	}
 
 
@@ -104,3 +104,4 @@ public class EmployeeController {
 	}
 
 }
+

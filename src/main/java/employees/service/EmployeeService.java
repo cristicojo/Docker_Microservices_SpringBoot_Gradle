@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import lombok.RequiredArgsConstructor;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,48 +15,46 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import employees.exception.DepartmentNotFoundException;
-import employees.exception.EmployeeNotFoundException;
 import employees.entity.Employee;
-import employees.repository.EmployeeRepo;
+import employees.repository.EmployeeRepository;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeService {
 
-	@Autowired
-	private EmployeeRepo repo;
-
-	@Autowired
-	private MongoTemplate mongoTemplate;
+	private final EmployeeRepository repo;
+	private final MongoTemplate mongoTemplate;
 
 
-	public List<Employee> getEmployees() {
+
+	public List<Employee> getAll() {
 		return repo.findAll();
 	}
 
-	public Employee getEmployeeById(String id) {
-		return repo.findById(id).orElseThrow(() -> new EmployeeNotFoundException("Could not found an employee with id: " + id));
+	public Employee getById(String id) {
+		return repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Could not found an employee with id: " + id));
 	}
 
 
-	public Employee createEmployee(Employee newEmp) {
+	public Employee create(Employee newEmp) {
 		return repo.save(newEmp);
 	}
 
 
-	public List<Employee> createEmployee_s(List<Employee> employeeList) {
+	public List<Employee> createAll(List<Employee> employeeList) {
 		return repo.saveAll(employeeList);
 	}
 
 
-	public Employee updateEmployeeById(String id, Employee newEmp) {
+	public Employee updateById(String id, Employee newEmp) {
 
 		Optional<Employee> optional = repo.findById(id);
 
 		if (!(optional.isPresent())) {
-			throw new EmployeeNotFoundException("Could not found an employee with id: " + id);
+			throw new ResourceNotFoundException("Could not found an employee with id: " + id);
 		}
 
 		Employee oldEmp = optional.get();
@@ -71,19 +69,13 @@ public class EmployeeService {
 	}
 
 
-	public void deleteEmployeeById(String id) {
-
-		Optional<Employee> optional = repo.findById(id);
-
-		if (!(optional.isPresent())) {
-			throw new EmployeeNotFoundException("Could not found an employee with id: " + id);
-		} else {
-			repo.delete(optional.get());
-		}
+	public void remove(String id) {
+		repo.delete(repo.findById(id).orElseThrow(() ->
+				new ResourceNotFoundException("Could not found an employee with id: " + id)));
 	}
 
 
-	public void deleteAllEmployees() {
+	public void removeAll() {
 		repo.deleteAll();
 	}
 
@@ -95,7 +87,7 @@ public class EmployeeService {
 		Employee employee = Employee.builder().build();
 
 		if (list.isEmpty()) {
-			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
+			throw new ResourceNotFoundException("Could not found department with the name: " + department);
 		}
 
 		double max = list.get(0).getSalary();
@@ -110,7 +102,7 @@ public class EmployeeService {
 	}
 
 	//the manager who has the most "direct" employees coordinated by him
-	public Employee getDirect_Manager() {
+	public Employee getDirectManager() {
 
 		List<Employee> employeeList = repo.findAll();
 		List<String> direct_ManagerList = new ArrayList<>();
@@ -177,14 +169,14 @@ public class EmployeeService {
 
 
 	//top n best paid employees in a given department
-	public List<Employee> topNBest(String department, int n) {
+	public List<Employee> topBestPaid(String department, int n) {
 
 		Criteria find = Criteria.where("department").is(department);
 		Query query = new Query().addCriteria(find).with(Sort.by(Sort.Direction.DESC, "salary")).limit(n);
 		List<Employee> employeeList = mongoTemplate.find(query, Employee.class);
 
 		if (employeeList.isEmpty()) {
-			throw new DepartmentNotFoundException("Could not found department with the name: " + department);
+			throw new ResourceNotFoundException("Could not found department with the name: " + department);
 		}
 
 		return employeeList;

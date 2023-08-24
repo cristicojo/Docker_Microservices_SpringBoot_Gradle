@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import employees.exception.EmployeeNotFoundException;
 import employees.entity.Employee;
 import employees.service.EmployeeService;
 import org.junit.Before;
@@ -16,14 +15,13 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -45,13 +43,12 @@ public class EmployeeControllerTest {
 
 
   @Test
-  public void findAllEmployeesTest() throws Exception {
+  public void findAllEmployeesTest() {
 
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
 
     Employee eMock1 = new Employee();
-    eMock1.set_id("1");
+    eMock1.setId("1");
     eMock1.setFirstName("testeeee 1");
     eMock1.setLastName("testeeee 1");
     eMock1.setDob(date);
@@ -60,7 +57,7 @@ public class EmployeeControllerTest {
     eMock1.setDepartment("testeeee 1");
 
     Employee eMock2 = new Employee();
-    eMock2.set_id("2");
+    eMock2.setId("2");
     eMock2.setFirstName("testeeee 2");
     eMock2.setLastName("testeeee 2");
     eMock2.setDob(date);
@@ -69,7 +66,7 @@ public class EmployeeControllerTest {
     eMock2.setDepartment("testeeee 2");
 
     Employee eMock3 = new Employee();
-    eMock3.set_id("3");
+    eMock3.setId("3");
     eMock3.setFirstName("testeeee 3");
     eMock3.setLastName("testeeee 3");
     eMock3.setDob(date);
@@ -82,11 +79,11 @@ public class EmployeeControllerTest {
     listMockEmployees.add(eMock2);
     listMockEmployees.add(eMock3);
 
-    when(service.getEmployees()).thenReturn((listMockEmployees));
-    List<Employee> employeeControllerList = controller.findAllEmployees();
+    when(service.getAll()).thenReturn((listMockEmployees));
+    List<Employee> employeeControllerList = controller.findAll();
 
     assertNotNull(employeeControllerList);
-    assertEquals(listMockEmployees.get(0).get_id(), employeeControllerList.get(0).get_id());
+    assertEquals(listMockEmployees.get(0).getId(), employeeControllerList.get(0).getId());
     assertEquals(listMockEmployees.get(0).getFirstName(),
         employeeControllerList.get(0).getFirstName());
     assertEquals(listMockEmployees.get(0).getDirectManager(),
@@ -97,7 +94,7 @@ public class EmployeeControllerTest {
     assertEquals(listMockEmployees.get(1).getDepartment(),
         employeeControllerList.get(1).getDepartment());
 
-    assertEquals(listMockEmployees.get(2).get_id(), employeeControllerList.get(2).get_id());
+    assertEquals(listMockEmployees.get(2).getId(), employeeControllerList.get(2).getId());
     assertEquals(listMockEmployees.get(2).getFirstName(),
         employeeControllerList.get(2).getFirstName());
     assertEquals(listMockEmployees.get(2).getDirectManager(),
@@ -106,13 +103,12 @@ public class EmployeeControllerTest {
   }
 
   @Test
-  public void findEmployeeByIdTest() throws Exception {
+  public void findEmployeeByIdTest() {
 
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
     Employee eMock = new Employee();
 
-    eMock.set_id("11");
+    eMock.setId("11");
     eMock.setFirstName("cristi teste");
     eMock.setLastName("cojocaru teste");
     eMock.setDob(date);
@@ -121,11 +117,11 @@ public class EmployeeControllerTest {
     eMock.setDepartment("IT");
 
     //inject mock object in the controller
-    when(service.getEmployeeById(((anyString())))).thenReturn((eMock));
-    Employee employeeController = controller.findEmployeeById("11");
+    when(service.getById(((anyString())))).thenReturn((eMock));
+    Employee employeeController = controller.findById("11");
 
     assertNotNull(employeeController);
-    assertEquals("11", eMock.get_id());
+    assertEquals("11", eMock.getId());
     assertEquals(eMock.getFirstName(), employeeController.getFirstName());
     assertEquals(eMock.getDirectManager(), employeeController.getDirectManager());
 
@@ -133,13 +129,12 @@ public class EmployeeControllerTest {
 
 
   @Test
-  public void saveEmployeeTest() throws ParseException {
+  public void saveEmployeeTest() {
 
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
     Employee eMock = new Employee();
 
-    eMock.set_id("11");
+    eMock.setId("11");
     eMock.setFirstName("cristi teste");
     eMock.setLastName("cojocaru teste");
     eMock.setDob(date);
@@ -148,11 +143,11 @@ public class EmployeeControllerTest {
     eMock.setDepartment("IT");
 
     //inject mock object in the controller
-    when(service.createEmployee((eMock))).thenReturn((eMock));
-    Employee employeeController = controller.saveEmployee(eMock);
+    when(service.create((eMock))).thenReturn((eMock));
+    Employee employeeController = controller.save(eMock);
 
     assertNotNull(employeeController);
-    assertEquals(eMock.get_id(), employeeController.get_id());
+    assertEquals(eMock.getId(), employeeController.getId());
     assertEquals(eMock.getFirstName(), employeeController.getFirstName());
     assertEquals(eMock.getDirectManager(), employeeController.getDirectManager());
 
@@ -160,13 +155,12 @@ public class EmployeeControllerTest {
 
 
   @Test
-  public void saveEmployeeSTest() throws ParseException {
+  public void saveEmployeeSTest() {
 
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
 
     Employee eMock1 = new Employee();
-    eMock1.set_id("1");
+    eMock1.setId("1");
     eMock1.setFirstName("testeeee 1");
     eMock1.setLastName("testeeee 1");
     eMock1.setDob(date);
@@ -175,7 +169,7 @@ public class EmployeeControllerTest {
     eMock1.setDepartment("testeeee 1");
 
     Employee eMock2 = new Employee();
-    eMock2.set_id("2");
+    eMock2.setId("2");
     eMock2.setFirstName("testeeee 2");
     eMock2.setLastName("testeeee 2");
     eMock2.setDob(date);
@@ -184,7 +178,7 @@ public class EmployeeControllerTest {
     eMock2.setDepartment("testeeee 2");
 
     Employee eMock3 = new Employee();
-    eMock3.set_id("3");
+    eMock3.setId("3");
     eMock3.setFirstName("testeeee 3");
     eMock3.setLastName("testeeee 3");
     eMock3.setDob(date);
@@ -197,11 +191,11 @@ public class EmployeeControllerTest {
     listMockEmployees.add(eMock2);
     listMockEmployees.add(eMock3);
 
-    when(service.createEmployee_s(listMockEmployees)).thenReturn((listMockEmployees));
-    List<Employee> employeeControllerList = controller.saveEmployeeS(listMockEmployees);
+    when(service.createAll(listMockEmployees)).thenReturn((listMockEmployees));
+    List<Employee> employeeControllerList = controller.saveAll(listMockEmployees);
 
     assertNotNull(employeeControllerList);
-    assertEquals(listMockEmployees.get(0).get_id(), employeeControllerList.get(0).get_id());
+    assertEquals(listMockEmployees.get(0).getId(), employeeControllerList.get(0).getId());
     assertEquals(listMockEmployees.get(0).getFirstName(),
         employeeControllerList.get(0).getFirstName());
     assertEquals(listMockEmployees.get(0).getDirectManager(),
@@ -212,7 +206,7 @@ public class EmployeeControllerTest {
     assertEquals(listMockEmployees.get(1).getDepartment(),
         employeeControllerList.get(1).getDepartment());
 
-    assertEquals(listMockEmployees.get(2).get_id(), employeeControllerList.get(2).get_id());
+    assertEquals(listMockEmployees.get(2).getId(), employeeControllerList.get(2).getId());
     assertEquals(listMockEmployees.get(2).getFirstName(),
         employeeControllerList.get(2).getFirstName());
     assertEquals(listMockEmployees.get(2).getDirectManager(),
@@ -225,7 +219,7 @@ public class EmployeeControllerTest {
 
     Employee eMock = new Employee();
 
-    eMock.set_id("11");
+    eMock.setId("11");
     eMock.setFirstName("cristi teste");
     eMock.setLastName("cojocaru teste");
     eMock.setDirectManager("TESTE");
@@ -234,7 +228,7 @@ public class EmployeeControllerTest {
 
     Employee updateEmployee = new Employee();
 
-    eMock.set_id("22");
+    eMock.setId("22");
     eMock.setFirstName("cristi2 teste");
     eMock.setLastName("cojocaru2 teste");
     eMock.setDirectManager("TESTE2");
@@ -242,11 +236,11 @@ public class EmployeeControllerTest {
     eMock.setDepartment("IT-IT");
 
     //inject mock object in the controller
-    when(service.updateEmployeeById(eMock.get_id(), updateEmployee)).thenReturn((updateEmployee));
-    Employee employeeController = controller.updateEmployee(updateEmployee, eMock.get_id());
+    when(service.updateById(eMock.getId(), updateEmployee)).thenReturn((updateEmployee));
+    Employee employeeController = controller.update(updateEmployee, eMock.getId());
 
     assertNotNull(employeeController);
-    assertEquals(updateEmployee.get_id(), employeeController.get_id());
+    assertEquals(updateEmployee.getId(), employeeController.getId());
     assertEquals(updateEmployee.getFirstName(), employeeController.getFirstName());
     assertEquals(updateEmployee.getDirectManager(), employeeController.getDirectManager());
   }
@@ -257,15 +251,15 @@ public class EmployeeControllerTest {
 
     Employee eMock = new Employee();
 
-    eMock.set_id("11");
+    eMock.setId("11");
     eMock.setFirstName("cristi teste");
     eMock.setLastName("cojocaru teste");
     eMock.setDirectManager("TESTE");
     eMock.setSalary(444.44);
     eMock.setDepartment("IT");
 
-    service.deleteEmployeeById(eMock.get_id());
-    controller.deleteById(eMock.get_id());
+    service.remove(eMock.getId());
+    controller.deleteById(eMock.getId());
 
   }
 
@@ -274,37 +268,36 @@ public class EmployeeControllerTest {
 
     Employee eMock = new Employee();
 
-    eMock.set_id("11");
+    eMock.setId("11");
     eMock.setFirstName("cristi teste");
     eMock.setLastName("cojocaru teste");
     eMock.setDirectManager("TESTE");
     eMock.setSalary(444.44);
     eMock.setDepartment("IT");
 
-    service.deleteAllEmployees();
+    service.removeAll();
     controller.deleteAll();
 
   }
 
 
-  @Test(expected = EmployeeNotFoundException.class)
+  @Test(expected = ResourceNotFoundException.class)
   public void itShouldThrowEmployeesNotFoundException() {
 
-    when(service.getEmployeeById(anyString())).thenThrow(EmployeeNotFoundException.class);
-    controller.findEmployeeById(anyString());
+    when(service.getById(anyString())).thenThrow(ResourceNotFoundException.class);
+    controller.findById(anyString());
 
   }
 
 
   @Test
-  public void maxSalaryTest() throws ParseException {
+  public void maxSalaryTest() {
 
 
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
 
     Employee eMock0 = new Employee();
-    eMock0.set_id("1");
+    eMock0.setId("1");
     eMock0.setFirstName("testeeee 1");
     eMock0.setLastName("testeeee 1");
     eMock0.setDob(date);
@@ -313,7 +306,7 @@ public class EmployeeControllerTest {
     eMock0.setDepartment("dep 1");
 
     Employee eMock1 = new Employee();
-    eMock1.set_id("2");
+    eMock1.setId("2");
     eMock1.setFirstName("testeeee 2");
     eMock1.setLastName("testeeee 2");
     eMock1.setDob(date);
@@ -322,7 +315,7 @@ public class EmployeeControllerTest {
     eMock1.setDepartment("dep 1");
 
     Employee eMock2 = new Employee();
-    eMock2.set_id("3");
+    eMock2.setId("3");
     eMock2.setFirstName("testeeee 3");
     eMock2.setLastName("testeeee 3");
     eMock2.setDob(date);
@@ -332,7 +325,7 @@ public class EmployeeControllerTest {
 
 
     Employee eMock3 = new Employee();
-    eMock3.set_id("1");
+    eMock3.setId("1");
     eMock3.setFirstName("testeeee 1");
     eMock3.setLastName("testeeee 1");
     eMock3.setDob(date);
@@ -341,7 +334,7 @@ public class EmployeeControllerTest {
     eMock3.setDepartment("dep 2");
 
     Employee eMock4 = new Employee();
-    eMock4.set_id("2");
+    eMock4.setId("2");
     eMock4.setFirstName("testeeee 2");
     eMock4.setLastName("testeeee 2");
     eMock4.setDob(date);
@@ -350,7 +343,7 @@ public class EmployeeControllerTest {
     eMock4.setDepartment("dep 2");
 
     Employee eMock5 = new Employee();
-    eMock5.set_id("3");
+    eMock5.setId("3");
     eMock5.setFirstName("testeeee 3");
     eMock5.setLastName("testeeee 3");
     eMock5.setDob(date);
@@ -368,21 +361,20 @@ public class EmployeeControllerTest {
 
     when(service.maxSalary(eMock3.getDepartment())).thenReturn((eMock3));
     Employee employeeController =
-        controller.findEmployeeByMaxSalaryByDepartment(eMock3.getDepartment());
+        controller.findByByDepartmentMaxSalary(eMock3.getDepartment());
 
     assertEquals(eMock3.getSalary(), employeeController.getSalary(), .1);
   }
 
 
   @Test
-  public void getDirectManagerTest() throws ParseException {
+  public void getDirectManagerTest() {
 
 
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
 
     Employee eMock0 = new Employee();
-    eMock0.set_id("1");
+    eMock0.setId("1");
     eMock0.setFirstName("testeeee 1");
     eMock0.setLastName("testeeee 1");
     eMock0.setDob(date);
@@ -391,7 +383,7 @@ public class EmployeeControllerTest {
     eMock0.setDepartment("dep 1");
 
     Employee eMock1 = new Employee();
-    eMock1.set_id("2");
+    eMock1.setId("2");
     eMock1.setFirstName("testeeee 2");
     eMock1.setLastName("testeeee 2");
     eMock1.setDob(date);
@@ -400,7 +392,7 @@ public class EmployeeControllerTest {
     eMock1.setDepartment("dep 1");
 
     Employee eMock2 = new Employee();
-    eMock2.set_id("3");
+    eMock2.setId("3");
     eMock2.setFirstName("testeeee 3");
     eMock2.setLastName("testeeee 3");
     eMock2.setDob(date);
@@ -410,7 +402,7 @@ public class EmployeeControllerTest {
 
 
     Employee eMock3 = new Employee();
-    eMock3.set_id("1");
+    eMock3.setId("1");
     eMock3.setFirstName("testeeee 1");
     eMock3.setLastName("testeeee 1");
     eMock3.setDob(date);
@@ -419,7 +411,7 @@ public class EmployeeControllerTest {
     eMock3.setDepartment("dep 2");
 
     Employee eMock4 = new Employee();
-    eMock4.set_id("2");
+    eMock4.setId("2");
     eMock4.setFirstName("testeeee 2");
     eMock4.setLastName("testeeee 2");
     eMock4.setDob(date);
@@ -428,7 +420,7 @@ public class EmployeeControllerTest {
     eMock4.setDepartment("dep 2");
 
     Employee eMock5 = new Employee();
-    eMock5.set_id("3");
+    eMock5.setId("3");
     eMock5.setFirstName("testeeee 3");
     eMock5.setLastName("testeeee 3");
     eMock5.setDob(date);
@@ -444,7 +436,7 @@ public class EmployeeControllerTest {
     listMockEmployees.add(eMock4);
     listMockEmployees.add(eMock5);
 
-    when(service.getDirect_Manager()).thenReturn((eMock0));
+    when(service.getDirectManager()).thenReturn((eMock0));
     Employee employeeController = controller.getManager();
 
     assertEquals(eMock0.getDirectManager().toLowerCase(),
@@ -454,14 +446,13 @@ public class EmployeeControllerTest {
 
   //bonus points
   @Test
-  public void getPageTest() throws ParseException {
+  public void getPageTest() {
 
     //first choice
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
 
     Employee eMock1 = new Employee();
-    eMock1.set_id("1");
+    eMock1.setId("1");
     eMock1.setFirstName("testeeee 1");
     eMock1.setLastName("testeeee 1");
     eMock1.setDob(date);
@@ -470,7 +461,7 @@ public class EmployeeControllerTest {
     eMock1.setDepartment("dep 1");
 
     Employee eMock2 = new Employee();
-    eMock2.set_id("2");
+    eMock2.setId("2");
     eMock2.setFirstName("testeeee 1");
     eMock2.setLastName("testeeee 1");
     eMock2.setDob(date);
@@ -479,7 +470,7 @@ public class EmployeeControllerTest {
     eMock2.setDepartment("dep 1");
 
     Employee eMock3 = new Employee();
-    eMock3.set_id("3");
+    eMock3.setId("3");
     eMock3.setFirstName("testeeee 1");
     eMock3.setLastName("testeeee 1");
     eMock3.setDob(date);
@@ -506,13 +497,12 @@ public class EmployeeControllerTest {
 
 
   @Test
-  public void topNBestTest() throws ParseException {
+  public void topNBestTest() {
 
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
 
     Employee eMock1 = new Employee();
-    eMock1.set_id("1");
+    eMock1.setId("1");
     eMock1.setFirstName("testeeee 1");
     eMock1.setLastName("testeeee 1");
     eMock1.setDob(date);
@@ -521,7 +511,7 @@ public class EmployeeControllerTest {
     eMock1.setDepartment("dep 1");
 
     Employee eMock2 = new Employee();
-    eMock2.set_id("2");
+    eMock2.setId("2");
     eMock2.setFirstName("testeeee 1");
     eMock2.setLastName("testeeee 1");
     eMock2.setDob(date);
@@ -530,7 +520,7 @@ public class EmployeeControllerTest {
     eMock2.setDepartment("dep 1");
 
     Employee eMock3 = new Employee();
-    eMock3.set_id("3");
+    eMock3.setId("3");
     eMock3.setFirstName("testeeee 1");
     eMock3.setLastName("testeeee 1");
     eMock3.setDob(date);
@@ -543,7 +533,7 @@ public class EmployeeControllerTest {
     employeeListMock.add(eMock2);
     employeeListMock.add(eMock3);
 
-    when(service.topNBest(eMock1.getDepartment(), 2)).thenReturn((employeeListMock));
+    when(service.topBestPaid(eMock1.getDepartment(), 2)).thenReturn((employeeListMock));
     List<Employee> employeeControllerList = controller.topN(eMock1.getDepartment(), 2);
 
     assertEquals(eMock2.getSalary(), employeeControllerList.get(1).getSalary(), .1);
@@ -553,13 +543,12 @@ public class EmployeeControllerTest {
 
 
   @Test
-  public void managementTreeTest() throws ParseException {
+  public void managementTreeTest() {
 
-    String sDate = "1984-11-25";
-    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+    LocalDate date = LocalDate.of(1984, 11, 25);
 
     Employee eMock1 = new Employee();
-    eMock1.set_id("1");
+    eMock1.setId("1");
     eMock1.setFirstName("testeeee 1");
     eMock1.setLastName("testeeee 1");
     eMock1.setDob(date);
@@ -568,7 +557,7 @@ public class EmployeeControllerTest {
     eMock1.setDepartment("dep 1");
 
     Employee eMock2 = new Employee();
-    eMock2.set_id("2");
+    eMock2.setId("2");
     eMock2.setFirstName("testeeee 1");
     eMock2.setLastName("testeeee 1");
     eMock2.setDob(date);
@@ -577,7 +566,7 @@ public class EmployeeControllerTest {
     eMock2.setDepartment("dep 1");
 
     Employee eMock3 = new Employee();
-    eMock3.set_id("3");
+    eMock3.setId("3");
     eMock3.setFirstName("testeeee 1");
     eMock3.setLastName("testeeee 1");
     eMock3.setDob(date);
