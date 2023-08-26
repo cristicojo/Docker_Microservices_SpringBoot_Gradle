@@ -1,12 +1,12 @@
-package employees.controller;
+package employee.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import employees.entity.Employee;
-import employees.service.EmployeeService;
+import employee.entity.Employee;
+import employee.service.EmployeeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package employees.service;
+package employee.service;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,8 +18,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import employees.entity.Employee;
-import employees.repository.EmployeeRepository;
+import employee.entity.Employee;
+import employee.repository.EmployeeRepository;
 
 @Service
 @RequiredArgsConstructor

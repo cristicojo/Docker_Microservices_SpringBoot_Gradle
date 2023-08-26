@@ -1,6 +1,4 @@
-package employees.entity;
-
-import java.time.LocalDate;
+package employee.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,9 +19,14 @@ public class Employee {
 	public String id;
 
 	private String firstName;
+
 	private String lastName;
-	private LocalDate dob;
+
+	private String dob;
+
 	private String directManager;
+
 	private Double salary;
+
 	private String department;
 }

@@ -1,4 +1,4 @@
-//package employees.importJsonTest;
+//package employee.importJsonTest;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //
