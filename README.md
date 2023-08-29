@@ -4,8 +4,7 @@ First Microservice = Employee_Docker [CRUD_service]
 Business Requirements:
 The HR department in CompanyXYZ needs to build a system for storing and querying employee data.
 The data model they described is as follows:
-Each employee record has a "last name" and a "first name". The maximum number of characters allowed for those fields is
-32.
+Each employee record has a "last name" and a "first name". The maximum number of characters allowed for those fields is 32.
 Each employee has a date of birth.
 Each employee has a direct manager (who is also an employee in the company).
 Each employee has "salary" (a decimal representation) and "department" (string representation) data associated.
