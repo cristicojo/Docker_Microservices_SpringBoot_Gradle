@@ -34,8 +34,3 @@ Also, the solution should be uploaded to some public git repository (GitHub, etc
 
 
 
-
-
-
-
-
